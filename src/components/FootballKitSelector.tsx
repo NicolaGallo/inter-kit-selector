@@ -22,20 +22,20 @@ export default function FootballKitSelector() {
 
   const shirts = [
     "/images/kit/inter_shirt1.jpg", // Blue/black striped shirt
-    "/images/kit/inter_shirt2.png", // White shirt
-    "/images/kit/inter_shirt3.png"  // Yellow with black design shirt
+    "/images/kit/inter_shirt2.jpg", // White shirt
+    "/images/kit/inter_shirt3.jpg"  // Yellow with black design shirt
   ];
 
   const shorts = [
-    "/images/kit/inter_short1.png", // Black shorts with blue stripe
-    "/images/kit/inter_short2.png", // Black shorts with yellow stripe
-    "/images/kit/inter_short3.png"
+    "/images/kit/inter_short1.jpg", // Black shorts with blue stripe
+    "/images/kit/inter_short2.jpg", // Black shorts with yellow stripe
+    "/images/kit/inter_short3.jpg"
   ];
 
   const socks = [
-    "/images/kit/inter_socks1.png", // Blue socks
-    "/images/kit/inter_socks2.png", // White socks
-    "/images/kit/inter_socks3.png" // Yellow socks
+    "/images/kit/inter_socks1.jpg", // Blue socks
+    "/images/kit/inter_socks2.jpg", // White socks
+    "/images/kit/inter_socks3.jpg" // Yellow socks
   ];
 
   return (
