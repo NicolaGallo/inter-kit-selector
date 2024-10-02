@@ -21,7 +21,7 @@ export default function FootballKitSelector() {
   const [selectedSocks, setSelectedSocks] = useState(0);
 
   const shirts = [
-    "/images/kit/inter_shirt1.png", // Blue/black striped shirt
+    "/images/kit/inter_shirt1.jpg", // Blue/black striped shirt
     "/images/kit/inter_shirt2.png", // White shirt
     "/images/kit/inter_shirt3.png"  // Yellow with black design shirt
   ];
