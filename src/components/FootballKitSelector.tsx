@@ -49,7 +49,7 @@ const TEAMS: Record<string, TeamKits> = {
       { src: "/images/kit/milan_short4.jpg", color: "black" },
       { src: "/images/kit/milan_short2.jpg", color: "white" },
       { src: "/images/kit/milan_short3.jpg", color: "grey" },
-      { src: "/images/kit/milan_shor1.jpg", color: "white" }
+      { src: "/images/kit/milan_short1.jpg", color: "white" }
     ],
     socks: [
       { src: "/images/kit/milan_socks1.jpg", color: "white" },
