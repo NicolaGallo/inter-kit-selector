@@ -5,9 +5,15 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+type ColorCategory = 'dark'|'dark_blue' |'dark_red' | 'light' | 'vibrant';
+
 type KitItem = {
   src: string;
   color: string;
+  colorCategory: ColorCategory;
+  isHome?: boolean;
+  isAway?: boolean;
+  isThird?: boolean;
 }
 
 type TeamKits = {
@@ -17,75 +23,90 @@ type TeamKits = {
   socks: KitItem[];
 }
 
+type KitOptionProps = {
+  item: KitItem;
+  type: 'shirt' | 'shorts' | 'socks';
+  onPrev: () => void;
+  onNext: () => void;
+  size: 'large' | 'medium' | 'small';
+}
+
+type TeamSelectorProps = {
+  side: 'home' | 'away';
+  selectedTeam: string;
+  onTeamChange: (team: string) => void;
+}
+
+type KitSelectorProps = {
+  title: string;
+  team: TeamKits;
+  selectedKit: {
+    shirt: number;
+    shorts: number;
+    socks: number;
+  };
+  onKitChange: (type: 'shirt' | 'shorts' | 'socks', index: number) => void;
+}
+
 const TEAMS: Record<string, TeamKits> = {
   'Inter': {
     name: 'Inter',
     shirts: [
-      { src: "/images/kit/inter_shirt1.jpg", color: "blue-black" },
-      { src: "/images/kit/inter_shirt2.jpg", color: "white" },
-      { src: "/images/kit/inter_shirt3.jpg", color: "yellow" }
+      { src: "/images/kit/inter_shirt1.jpg", color: "blue-black", colorCategory: 'dark_blue', isHome: true },
+      { src: "/images/kit/inter_shirt2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/inter_shirt3.jpg", color: "yellow", colorCategory: 'vibrant', isThird: true }
     ],
     shorts: [
-      { src: "/images/kit/inter_short1.jpg", color: "black" },
-      { src: "/images/kit/inter_short2.jpg", color: "white" },
-      { src: "/images/kit/inter_short3.jpg", color: "yellow" },
-      { src: "/images/kit/inter_short4.jpg", color: "yellow" },
-      { src: "/images/kit/inter_short5.jpg", color: "yellow" }
+      { src: "/images/kit/inter_short1.jpg", color: "black", colorCategory: 'dark', isHome: true },
+      { src: "/images/kit/inter_short2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/inter_short3.jpg", color: "yellow", colorCategory: 'vibrant', isThird: true },
+      { src: "/images/kit/inter_short4.jpg", color: "blue", colorCategory: 'vibrant', isThird: true },
+      { src: "/images/kit/inter_short5.jpg", color: "black-yellow", colorCategory: 'dark', isThird: true }
     ],
     socks: [
-      { src: "/images/kit/inter_socks1.jpg", color: "black" },
-      { src: "/images/kit/inter_socks2.jpg", color: "white" },
-      { src: "/images/kit/inter_socks3.jpg", color: "yellow" }
+      { src: "/images/kit/inter_socks1.jpg", color: "black", colorCategory: 'dark', isHome: true },
+      { src: "/images/kit/inter_socks2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/inter_socks3.jpg", color: "yellow", colorCategory: 'vibrant', isThird: true }
     ]
   },
   'Milan': {
     name: 'Milan',
     shirts: [
-      { src: "/images/kit/milan_shirt1.jpg", color: "red-black" },
-      { src: "/images/kit/milan_shirt2.jpg", color: "white" },
-      { src: "/images/kit/milan_shirt3.jpg", color: "grey" }
+      { src: "/images/kit/milan_shirt1.jpg", color: "red-black", colorCategory: 'dark_red', isHome: true },
+      { src: "/images/kit/milan_shirt2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/milan_shirt3.jpg", color: "grey", colorCategory: 'light', isThird: true }
     ],
     shorts: [
-      { src: "/images/kit/milan_short4.jpg", color: "black" },
-      { src: "/images/kit/milan_short2.jpg", color: "white" },
-      { src: "/images/kit/milan_short3.jpg", color: "grey" },
-      { src: "/images/kit/milan_short1.jpg", color: "white" }
+      { src: "/images/kit/milan_short1.jpg", color: "white", colorCategory: 'light', isHome: true },
+      { src: "/images/kit/milan_short2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/milan_short3.jpg", color: "grey", colorCategory: 'dark', isThird: true },
+      { src: "/images/kit/milan_short4.jpg", color: "grey", colorCategory: 'dark', isThird: true }
     ],
     socks: [
-      { src: "/images/kit/milan_socks1.jpg", color: "white" },
-      { src: "/images/kit/milan_socks2.jpg", color: "white" },
-      { src: "/images/kit/milan_socks3.jpg", color: "grey" }
+      { src: "/images/kit/milan_socks1.jpg", color: "white", colorCategory: 'dark', isHome: true },
+      { src: "/images/kit/milan_socks2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/milan_socks3.jpg", color: "grey", colorCategory: 'light', isThird: true }
     ]
   },
-  
   'Roma': {
     name: 'Roma',
     shirts: [
-      { src: "/images/kit/roma_shirt1.jpg", color: "red-yellow" },
-      { src: "/images/kit/roma_shirt2.jpg", color: "white" },
-      { src: "/images/kit/roma_shirt3.jpg", color: "black" }
+      { src: "/images/kit/roma_shirt1.jpg", color: "red-yellow", colorCategory: 'vibrant', isHome: true },
+      { src: "/images/kit/roma_shirt2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/roma_shirt3.jpg", color: "black", colorCategory: 'dark', isThird: true }
     ],
     shorts: [
-      { src: "/images/kit/roma_short1.jpg", color: "red" },
-      { src: "/images/kit/roma_short2.jpg", color: "white" },
-      { src: "/images/kit/roma_short3.jpg", color: "black" }
+      { src: "/images/kit/roma_short1.jpg", color: "red", colorCategory: 'vibrant', isHome: true },
+      { src: "/images/kit/roma_short2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/roma_short3.jpg", color: "black", colorCategory: 'dark', isThird: true }
     ],
     socks: [
-      { src: "/images/kit/roma_socks1.jpg", color: "red" },
-      { src: "/images/kit/roma_socks2.jpg", color: "white" },
-      { src: "/images/kit/roma_socks3.jpg", color: "black" }
+      { src: "/images/kit/roma_socks1.jpg", color: "red", colorCategory: 'vibrant', isHome: true },
+      { src: "/images/kit/roma_socks2.jpg", color: "white", colorCategory: 'light', isAway: true },
+      { src: "/images/kit/roma_socks3.jpg", color: "black", colorCategory: 'dark', isThird: true }
     ]
   }
-  
 };
-
-type KitOptionProps = {
-  item: KitItem;
-  type: string;
-  onPrev: () => void;
-  onNext: () => void;
-  size: 'large' | 'medium' | 'small';
-}
 
 const KitOption: React.FC<KitOptionProps> = ({ item, type, onPrev, onNext, size }) => {
   const sizeClasses = {
@@ -110,12 +131,6 @@ const KitOption: React.FC<KitOptionProps> = ({ item, type, onPrev, onNext, size 
   );
 };
 
-type TeamSelectorProps = {
-  side: 'home' | 'away';
-  selectedTeam: string;
-  onTeamChange: (team: string) => void;
-}
-
 const TeamSelector: React.FC<TeamSelectorProps> = ({ side, selectedTeam, onTeamChange }) => (
   <div className="mb-4">
     <Select value={selectedTeam} onValueChange={onTeamChange}>
@@ -130,13 +145,6 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({ side, selectedTeam, onTeamC
     </Select>
   </div>
 );
-
-type KitSelectorProps = {
-  title: string;
-  team: TeamKits;
-  selectedKit: {shirt: number; shorts: number; socks: number};
-  onKitChange: (type: 'shirt' | 'shorts' | 'socks', index: number) => void;
-}
 
 const KitSelector: React.FC<KitSelectorProps> = ({ title, team, selectedKit, onKitChange }) => (
   <div className="flex flex-col items-center">
@@ -165,29 +173,62 @@ const KitSelector: React.FC<KitSelectorProps> = ({ title, team, selectedKit, onK
   </div>
 );
 
-export default function SerieAKitSelector() {
+const SerieAKitSelector: React.FC = () => {
   const [homeTeam, setHomeTeam] = useState('Inter');
   const [awayTeam, setAwayTeam] = useState('Milan');
   const [homeKit, setHomeKit] = useState({shirt: 0, shorts: 0, socks: 0});
   const [awayKit, setAwayKit] = useState({shirt: 0, shorts: 0, socks: 0});
 
+  const areColorsCompatible = (item1: KitItem, item2: KitItem): boolean => {
+    if (item1.color === item2.color || item1.colorCategory === item2.colorCategory) {
+      return false;
+    }
+    return true;
+  }
+
+  const findBestAwayKit = (awayTeamKits: TeamKits, homeTeamKit: {
+    shirt: KitItem,
+    shorts: KitItem,
+    socks: KitItem
+  }) => {
+    const preferredShirts = awayTeamKits.shirts.filter(shirt => shirt.isAway || shirt.isThird);
+    const preferredShorts = awayTeamKits.shorts.filter(shorts => shorts.isAway || shorts.isThird);
+    const preferredSocks = awayTeamKits.socks.filter(socks => socks.isAway || socks.isThird);
+
+    const compatibleShirt = preferredShirts.find(shirt => 
+      areColorsCompatible(shirt, homeTeamKit.shirt)
+    ) || awayTeamKits.shirts.find(shirt => 
+      areColorsCompatible(shirt, homeTeamKit.shirt)
+    );
+
+    const compatibleShorts = preferredShorts.find(shorts => 
+      areColorsCompatible(shorts, homeTeamKit.shorts)
+    ) || awayTeamKits.shorts.find(shorts => 
+      areColorsCompatible(shorts, homeTeamKit.shorts)
+    );
+
+    const compatibleSocks = preferredSocks.find(socks => 
+      areColorsCompatible(socks, homeTeamKit.socks)
+    ) || awayTeamKits.socks.find(socks => 
+      areColorsCompatible(socks, homeTeamKit.socks)
+    );
+
+    return {
+      shirt: awayTeamKits.shirts.indexOf(compatibleShirt || awayTeamKits.shirts[1]),
+      shorts: awayTeamKits.shorts.indexOf(compatibleShorts || awayTeamKits.shorts[1]),
+      socks: awayTeamKits.socks.indexOf(compatibleSocks || awayTeamKits.socks[1])
+    };
+  };
+
   const chooseMatchKits = () => {
-    // Home team gets priority for home kit
+    const newHomeKit = {
+      shirt: TEAMS[homeTeam].shirts[0],
+      shorts: TEAMS[homeTeam].shorts[0],
+      socks: TEAMS[homeTeam].socks[0]
+    };
     setHomeKit({shirt: 0, shorts: 0, socks: 0});
     
-    // Away team needs to avoid home team colors
-    const homeColors = {
-      shirt: TEAMS[homeTeam].shirts[0].color,
-      shorts: TEAMS[homeTeam].shorts[0].color,
-      socks: TEAMS[homeTeam].socks[0].color,
-    };
-    
-    const newAwayKit = {
-      shirt: TEAMS[awayTeam].shirts.findIndex(s => s.color !== homeColors.shirt),
-      shorts: TEAMS[awayTeam].shorts.findIndex(s => s.color !== homeColors.shorts),
-      socks: TEAMS[awayTeam].socks.findIndex(s => s.color !== homeColors.socks),
-    };
-    
+    const newAwayKit = findBestAwayKit(TEAMS[awayTeam], newHomeKit);
     setAwayKit(newAwayKit);
   };
 
@@ -223,4 +264,6 @@ export default function SerieAKitSelector() {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default SerieAKitSelector;
