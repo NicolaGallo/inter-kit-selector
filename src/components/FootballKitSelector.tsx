@@ -59,9 +59,9 @@ const TEAMS: Record<string, TeamKits> = {
     shorts: [
       { src: "/images/kit/inter_short1.jpg", color: "black", colorCategory: 'dark', isHome: true },
       { src: "/images/kit/inter_short2.jpg", color: "white", colorCategory: 'light', isAway: true },
-      { src: "/images/kit/inter_short3.jpg", color: "yellow", colorCategory: 'vibrant', isThird: true },
+      { src: "/images/kit/inter_short3.jpg", color: "black", colorCategory: 'dark', isThird: true },
       { src: "/images/kit/inter_short4.jpg", color: "blue", colorCategory: 'vibrant', isThird: true },
-      { src: "/images/kit/inter_short5.jpg", color: "black-yellow", colorCategory: 'dark', isThird: true }
+      { src: "/images/kit/inter_short5.jpg", color: "yellow", colorCategory: 'light', isThird: true }
     ],
     socks: [
       { src: "/images/kit/inter_socks1.jpg", color: "black", colorCategory: 'dark', isHome: true },
