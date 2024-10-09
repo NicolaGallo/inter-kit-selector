@@ -73,13 +73,13 @@ const TEAMS: Record<string, TeamKits> = {
     shirts: [
       { src: "/images/kit/milan_shirt1.jpg", color: "red-black", colorCategory: 'dark', isHome: true },
       { src: "/images/kit/milan_shirt2.jpg", color: "white", colorCategory: 'light', isAway: true },
-      { src: "/images/kit/milan_shirt3.jpg", color: "grey", colorCategory: 'light', isThird: true }
+      { src: "/images/kit/milan_shirt3.jpg", color: "grey", colorCategory: 'dark', isThird: true }
     ],
     shorts: [
       { src: "/images/kit/milan_short1.jpg", color: "white", colorCategory: 'light', isHome: true },
       { src: "/images/kit/milan_short2.jpg", color: "white", colorCategory: 'light', isAway: true },
       { src: "/images/kit/milan_short3.jpg", color: "grey", colorCategory: 'dark', isThird: true },
-      { src: "/images/kit/milan_short4.jpg", color: "grey", colorCategory: 'dark', isThird: true }
+      { src: "/images/kit/milan_short4.jpg", color: "black", colorCategory: 'dark', isThird: true }
     ],
     socks: [
       { src: "/images/kit/milan_socks1.jpg", color: "white", colorCategory: 'light', isHome: true },
